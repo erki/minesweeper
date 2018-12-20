@@ -1,26 +1,67 @@
 package at.erki.training.minesweeper.domain.model;
 
-public abstract class Cell {
+import at.erki.training.minesweeper.domain.model.exceptions.GameOverException;
+import javafx.geometry.Pos;
+
+public class Cell {
 
     private Position position;
-    
-    protected boolean isExposed = false;
 
-    public Cell(Position position) {
+    private int number;
+
+    private boolean isMine = false;
+    
+    private boolean isExposed = false;
+
+    Cell(Position position) {
         this.position = position;
     }
 
-    public boolean isExposed() {
+    Cell(Position position, boolean isMine) {
+        this(position);
+        this.isMine = isMine;
+    }
+
+    boolean isMine() {
+        return isMine;
+    }
+
+    void setMine(boolean mine) {
+        isMine = mine;
+    }
+
+    boolean isExposed() {
         return isExposed;
     }
 
-    public abstract int expose();
+    int expose() {
+        this.isExposed = true;
+        if(isMine) {
+            throw new GameOverException("Boom!!");
+        }
+        return number;
+    }
 
-    public Position position() {
+    void incrementNumber() {
+        number++;
+    }
+
+    Position position() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    void setPosition(Position position) {
         this.position = position;
+    }
+
+    @Override
+    public String toString() {
+        if(!isExposed) {
+            return "?";
+        }
+        if(isMine) {
+            return "*";
+        }
+        return number == 0 ? " " : String.valueOf(number);
     }
 }

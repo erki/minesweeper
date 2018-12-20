@@ -1,4 +1,4 @@
-package at.erki.training.minesweeper.domain.model;
+package at.erki.training.minesweeper.domain.model.exceptions;
 
 public class GameOverException extends RuntimeException {
     

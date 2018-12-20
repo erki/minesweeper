@@ -3,6 +3,7 @@ package at.erki.training.minesweeper.domain.model;
 import java.util.Optional;
 
 public final class Position {
+
     public final int x;
     public final int y;
 
@@ -25,8 +26,8 @@ public final class Position {
         return Optional.of(new Position(x + deltaX, y + deltaY));
     }
     
-    boolean inBounds(int lower, int upper) {
-        return lower <= x && x < upper && lower <= y && y < upper;
+    boolean inBounds(int upperBound) {
+        return 0 <= x && x < upperBound && 0 <= y && y < upperBound;
     }
 
 }

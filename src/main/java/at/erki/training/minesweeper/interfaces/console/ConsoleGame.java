@@ -1,13 +1,13 @@
 package at.erki.training.minesweeper.interfaces.console;
 
 import at.erki.training.minesweeper.domain.model.Board;
-import at.erki.training.minesweeper.domain.model.GameOverException;
+import at.erki.training.minesweeper.domain.model.exceptions.GameOverException;
 import at.erki.training.minesweeper.domain.model.Position;
 
 import java.util.Optional;
 import java.util.Scanner;
 
-public class ConsoleGame {
+class ConsoleGame {
     
     private State state;
     
@@ -15,12 +15,12 @@ public class ConsoleGame {
     
     private BoardPrinter printer;
     
-    public ConsoleGame(int numberOfCellsPerRow, int numberOfMines) {
+    ConsoleGame(int numberOfCellsPerRow, int numberOfMines) {
         this.board = new Board(numberOfCellsPerRow, numberOfMines);
         this.printer = new BoardPrinter();
     }
     
-    public void start() {
+    void start() {
         state = State.RUNNING;
         Scanner userIn = new Scanner(System.in);
         printer.print(board);
@@ -53,7 +53,7 @@ public class ConsoleGame {
         }
     }
 
-    public State getState() {
+    State getState() {
         return state;
     }
 
