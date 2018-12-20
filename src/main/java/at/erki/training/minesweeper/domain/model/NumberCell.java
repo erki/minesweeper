@@ -10,6 +10,7 @@ public class NumberCell extends Cell {
     }
 
     public int expose() {
+        this.isExposed = true;
         return number;
     }
 
@@ -17,4 +18,14 @@ public class NumberCell extends Cell {
         number++;
     }
 
+    @Override
+    public String toString() {
+        if (!isExposed) {
+            return "? ";
+        }
+        if (number == 0) {
+            return "  ";
+        }
+        return number + " ";
+    }
 }

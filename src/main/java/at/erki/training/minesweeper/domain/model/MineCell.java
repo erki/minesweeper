@@ -1,7 +1,5 @@
 package at.erki.training.minesweeper.domain.model;
 
-import javafx.geometry.Pos;
-
 public class MineCell extends Cell {
 
     public MineCell(Position position) {
@@ -10,6 +8,15 @@ public class MineCell extends Cell {
 
     @Override
     public int expose() {
-        return 0;
+        this.isExposed = true;
+        throw new GameOverException("Boom!!");
+    }
+
+    @Override
+    public String toString() {
+        if(!isExposed) {
+            return "? ";
+        }
+        return "* ";
     }
 }

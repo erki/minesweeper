@@ -18,11 +18,15 @@ public final class Position {
         return new Position(x, y);
     }
 
-    public Optional<Position> adjustBy(int deltaX, int deltaY) {
+    Optional<Position> adjustBy(int deltaX, int deltaY) {
         if(x + deltaX < 0 || y + deltaY < 0) {
             return Optional.empty();
         }
         return Optional.of(new Position(x + deltaX, y + deltaY));
+    }
+    
+    boolean inBounds(int lower, int upper) {
+        return lower <= x && x < upper && lower <= y && y < upper;
     }
 
 }

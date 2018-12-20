@@ -1,13 +1,17 @@
 package at.erki.training.minesweeper.domain.model;
 
-import javafx.geometry.Pos;
-
 public abstract class Cell {
 
     private Position position;
+    
+    protected boolean isExposed = false;
 
     public Cell(Position position) {
         this.position = position;
+    }
+
+    public boolean isExposed() {
+        return isExposed;
     }
 
     public abstract int expose();
