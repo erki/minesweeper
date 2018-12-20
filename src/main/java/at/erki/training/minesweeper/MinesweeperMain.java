@@ -1,4 +1,6 @@
-package at.erki.training.minesweeper.interfaces.console;
+package at.erki.training.minesweeper;
+
+import at.erki.training.minesweeper.interfaces.console.ConsoleGame;
 
 public class MinesweeperMain {
 

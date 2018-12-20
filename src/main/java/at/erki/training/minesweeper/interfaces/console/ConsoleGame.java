@@ -7,7 +7,7 @@ import at.erki.training.minesweeper.domain.model.Position;
 import java.util.Optional;
 import java.util.Scanner;
 
-class ConsoleGame {
+public class ConsoleGame {
     
     private State state;
     
@@ -15,12 +15,12 @@ class ConsoleGame {
     
     private BoardPrinter printer;
     
-    ConsoleGame(int numberOfCellsPerRow, int numberOfMines) {
+    public ConsoleGame(int numberOfCellsPerRow, int numberOfMines) {
         this.board = new Board(numberOfCellsPerRow, numberOfMines);
         this.printer = new BoardPrinter();
     }
     
-    void start() {
+    public void start() {
         state = State.RUNNING;
         Scanner userIn = new Scanner(System.in);
         printer.print(board);
@@ -53,7 +53,7 @@ class ConsoleGame {
         }
     }
 
-    State getState() {
+    public State getState() {
         return state;
     }
 
