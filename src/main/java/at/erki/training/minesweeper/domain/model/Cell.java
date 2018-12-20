@@ -8,11 +8,13 @@ public class Cell {
 
     private Position position;
 
-    private int number;
+    private int number = 0;
 
     private boolean isMine = false;
-    
+
     private boolean isExposed = false;
+
+    private boolean isMarked = false;
 
     public Cell(Position position) {
         this.position = position;
@@ -21,6 +23,9 @@ public class Cell {
     public Cell(Position position, boolean isMine) {
         this(position);
         this.isMine = isMine;
+        if (isMine) {
+            this.number = -1;
+        }
     }
 
     boolean isMine() {
@@ -33,7 +38,7 @@ public class Cell {
 
     int expose() {
         this.isExposed = true;
-        if(isMine) {
+        if (isMine) {
             throw new GameOverException("Boom!!");
         }
         return number;
@@ -51,12 +56,19 @@ public class Cell {
         this.position = position;
     }
 
+    public void toggleMark() {
+        isMarked = !isMarked;
+    }
+
     @Override
     public String toString() {
-        if(!isExposed) {
+        if(isMarked) {
+            return "X";
+        }
+        if (!isExposed) {
             return "?";
         }
-        if(isMine) {
+        if (isMine) {
             return "*";
         }
         return number == 0 ? " " : String.valueOf(number);

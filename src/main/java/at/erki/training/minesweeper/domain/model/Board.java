@@ -51,7 +51,7 @@ public class Board {
     private void numberNonMineCells() {
         for (Cell mine : mines) {
             forEachNeighbor(mine, cell -> {
-                if (cell.isMine()) {
+                if (!cell.isMine()) {
                     cell.incrementNumber();
                 }
             });
@@ -59,13 +59,25 @@ public class Board {
     }
 
     /**
-     * reveals the underlying value of a cell at the given position iff the cell hasn't already been revealed
-     * if the cell is blank (it's value is 0), all neighbors are also being revealed. The process is repeated for all
-     * blank neighbors
+     * executes a players move. A move can either be marking a certain cell as a possible mine or revealing a cell
+     * at a given position.
      *
-     * @param position The {@link Position} of the cell to be revealed
+     * @param move A move to execute identified by a {@link Position} of a cell to be revealed or marked
      */
-    public void reveal(Position position) {
+    public void executeMove(PlayerMove move) {
+        if(move.isMarkingMove()) {
+            markPosition(move.position());
+        }
+        else {
+            reveal(move.position());
+        }
+    }
+
+    private void markPosition(Position position) {
+        cells[position.x][position.y].toggleMark();
+    }
+
+    private void reveal(Position position) {
         Cell cellToReveal = cells[position.x][position.y];
         if (!cellToReveal.isExposed()) {
             int number = cellToReveal.expose();
@@ -82,8 +94,7 @@ public class Board {
      * @return <code>true</code> if there are more cells to be revealed
      */
     public boolean hasRemainingCells() {
-        return Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> !cell.isExposed())
-                .filter(cell -> !cell.isMine()).count() != mines.length;
+        return Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> !cell.isExposed()).count() != mines.length;
     }
 
     /**
