@@ -1,5 +1,6 @@
 package at.erki.training.minesweeper.domain.model;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public final class Position {
@@ -30,4 +31,17 @@ public final class Position {
         return 0 <= x && x < upperBound && 0 <= y && y < upperBound;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return x == position.x &&
+                y == position.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 }

@@ -1,7 +1,8 @@
 package at.erki.training.minesweeper.domain.model;
 
 import at.erki.training.minesweeper.domain.model.exceptions.GameOverException;
-import javafx.geometry.Pos;
+
+import java.util.Objects;
 
 public class Cell {
 
@@ -13,21 +14,17 @@ public class Cell {
     
     private boolean isExposed = false;
 
-    Cell(Position position) {
+    public Cell(Position position) {
         this.position = position;
     }
 
-    Cell(Position position, boolean isMine) {
+    public Cell(Position position, boolean isMine) {
         this(position);
         this.isMine = isMine;
     }
 
     boolean isMine() {
         return isMine;
-    }
-
-    void setMine(boolean mine) {
-        isMine = mine;
     }
 
     boolean isExposed() {
@@ -50,7 +47,7 @@ public class Cell {
         return position;
     }
 
-    void setPosition(Position position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 
@@ -63,5 +60,21 @@ public class Cell {
             return "*";
         }
         return number == 0 ? " " : String.valueOf(number);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cell cell = (Cell) o;
+        return number == cell.number &&
+                isMine == cell.isMine &&
+                isExposed == cell.isExposed &&
+                position.equals(cell.position);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(position, number, isMine, isExposed);
     }
 }

@@ -1,7 +1,9 @@
 package at.erki.training.minesweeper.domain.model;
 
+import at.erki.training.minesweeper.domain.services.FisherYatesRandomizingStrategy;
+import at.erki.training.minesweeper.domain.services.RandomizingStrategy;
+
 import java.util.Arrays;
-import java.util.Random;
 import java.util.function.Consumer;
 
 public class Board {
@@ -21,7 +23,7 @@ public class Board {
         cells = new Cell[rowCellCount][rowCellCount];
         mines = new Cell[mineCount];
         populateBoard(rowCellCount, mineCount);
-        shuffleBoard(rowCellCount);
+        shuffleBoard();
         numberNonMineCells();
     }
 
@@ -40,32 +42,11 @@ public class Board {
         }
     }
 
-    private void shuffleBoard(int numberOfCellsPerRow) {
-        Random random = new Random();
-        int numberOfCells = cells.length * cells.length;
-        for (int i = 0; i < numberOfCells; i++) {
-            int j = i + random.nextInt(numberOfCells - i);
-            if (i != j) {
-                Position position1 = calculate2DPosition(i);
-                Position position2 = calculate2DPosition(j);
-                swapCellsAtPositions(position1, position2);
-            }
-        }
+    private void shuffleBoard() {
+        RandomizingStrategy randomizer = new FisherYatesRandomizingStrategy();
+        randomizer.randomize(cells);
     }
 
-    private Position calculate2DPosition(int flatIndex) {
-        return Position.of(flatIndex / cells.length,
-                (flatIndex - (flatIndex / cells.length) * cells.length) % cells.length);
-    }
-
-    private void swapCellsAtPositions(Position position1, Position position2) {
-        Cell firstCell = cells[position1.x][position1.y];
-        Cell secondCell = cells[position2.x][position2.y];
-        cells[position2.x][position2.y] = firstCell;
-        cells[position1.x][position1.y] = secondCell;
-        firstCell.setPosition(position2);
-        secondCell.setPosition(position1);
-    }
 
     private void numberNonMineCells() {
         for (Cell mine : mines) {
