@@ -20,12 +20,11 @@ public class Board {
 
     public void reveal(Position position) {
         Cell cellToReveal = cells[position.x][position.y];
-        if (cellToReveal.isExposed()) {
-            return;
-        }
-        int number = cellToReveal.expose();
-        if (number == 0) {
-            forEachNeighbor(cellToReveal, neighbor -> reveal(neighbor.position()));
+        if (!cellToReveal.isExposed()) {
+            int number = cellToReveal.expose();
+            if (number == 0) {
+                forEachNeighbor(cellToReveal, neighbor -> reveal(neighbor.position()));
+            }
         }
     }
 

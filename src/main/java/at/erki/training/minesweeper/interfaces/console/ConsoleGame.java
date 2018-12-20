@@ -58,7 +58,7 @@ public class ConsoleGame {
     }
 
     public enum State {
-        WON, LOST, RUNNING, ABORTED;
+        WON, LOST, RUNNING, ABORTED
     }
     
 }

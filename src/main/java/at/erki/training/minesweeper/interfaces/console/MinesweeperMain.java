@@ -7,9 +7,9 @@ public class MinesweeperMain {
         int numberOfMines = Integer.parseInt(args[1]);
         ConsoleGame.State result = play(numberOfCellsPerRow, numberOfMines);
         switch(result) {
-            case WON: System.out.println("Congrats! You won!"); return;
-            case LOST: System.out.println("Sorry, you lost!"); return;
-            case ABORTED: System.out.println("OK, see you!"); return;
+            case WON: System.out.println("Congrats! You won!"); break;
+            case LOST: System.out.println("Sorry, you lost!"); break;
+            case ABORTED: System.out.println("OK, see you!");
         }
     }
 
